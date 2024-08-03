@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import javafx.scene.input.MouseEvent;
+import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.states.GameOver;
 import nz.ac.auckland.se206.states.GameStarted;
 import nz.ac.auckland.se206.states.GameState;
@@ -31,8 +32,8 @@ public class GameStateContext {
   private GameState gameState;
 
   /** Constructs a new GameStateContext and initializes the game states and professions. */
-  public GameStateContext() {
-    gameStartedState = new GameStarted(this);
+  public GameStateContext(RoomController roomController) {
+    gameStartedState = new GameStarted(this, roomController);
     guessingState = new Guessing(this);
     gameOverState = new GameOver(this);
 

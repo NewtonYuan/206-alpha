@@ -42,11 +42,12 @@ public class RoomController {
   @FXML private Button sendButton;
   @FXML private Pane chatContainer;
   @FXML private Label titleLabel;
+  @FXML private Label chatTitle;
 
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
 
-  private static GameStateContext context = new GameStateContext();
+  private GameStateContext context = new GameStateContext(this);
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -190,7 +191,15 @@ public class RoomController {
     chatContainer.setVisible(false);
   }
 
-  public Pane getChatContainer() {
-    return chatContainer;
+  public void setChatContainerVisible(boolean visible) {
+    chatContainer.setVisible(visible);
+  }  
+
+  public void setTitleLabelText(String text) {
+    titleLabel.setText(text);
+  }
+
+  public void setChatTitleText(String text) {
+    chatTitle.setText(text);
   }
 }

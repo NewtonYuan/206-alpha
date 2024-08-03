@@ -17,15 +17,16 @@ import nz.ac.auckland.se206.controllers.RoomController;
 public class GameStarted implements GameState {
 
   private final GameStateContext context;
-  @FXML private Pane chatContainer;
+  private final RoomController roomController;
 
   /**
    * Constructs a new GameStarted state with the given game state context.
    *
    * @param context the context of the game state
    */
-  public GameStarted(GameStateContext context) {
+  public GameStarted(GameStateContext context, RoomController roomController  ) {
     this.context = context;
+    this.roomController = roomController;
   }
 
   /**
@@ -43,8 +44,17 @@ public class GameStarted implements GameState {
       case "rectOfficer":
         TextToSpeech.speak("This is you, collect clues to find the thief");
         return;
+      case "rectClueCar":
+        roomController.setTitleLabelText("Clue found: The thief seems to have used a car as transport.");
+        return;
+      case "rectClueMoney":
+        roomController.setChatTitleText("Clue found: The thief seems to have tried to steal money.");
+        return;
+      case "rectClueGate":
+        roomController.setChatTitleText("Clue found: The thief seems to have tried to open this gate.");
+        return;
     }
-    //chatContainer.setVisible(true);
+    roomController.setChatContainerVisible(true);
   }
 
   /**
