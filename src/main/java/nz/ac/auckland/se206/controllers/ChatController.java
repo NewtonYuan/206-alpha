@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
 import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
@@ -27,6 +28,7 @@ public class ChatController {
   @FXML private TextArea textArea;
   @FXML private TextField inputField;
   @FXML private Button sendButton;
+  @FXML private Pane chatPane;
 
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
@@ -132,6 +134,6 @@ public class ChatController {
    */
   @FXML
   private void onExit(ActionEvent event) throws ApiProxyException, IOException {
-    App.setRoot("room");
+    chatPane.setVisible(false);
   }
 }
