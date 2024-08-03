@@ -24,9 +24,9 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
  */
 public class ChatController {
 
-  @FXML private TextArea txtaChat;
-  @FXML private TextField txtInput;
-  @FXML private Button btnSend;
+  @FXML private TextArea textArea;
+  @FXML private TextField inputField;
+  @FXML private Button sendButton;
 
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
@@ -79,7 +79,7 @@ public class ChatController {
    * @param msg the chat message to append
    */
   private void appendChatMessage(ChatMessage msg) {
-    txtaChat.appendText(msg.getRole() + ": " + msg.getContent() + "\n\n");
+    textArea.appendText(msg.getRole() + ": " + msg.getContent() + "\n\n");
   }
 
   /**
@@ -113,11 +113,11 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
-    String message = txtInput.getText().trim();
+    String message = inputField.getText().trim();
     if (message.isEmpty()) {
       return;
     }
-    txtInput.clear();
+    inputField.clear();
     ChatMessage msg = new ChatMessage("user", message);
     appendChatMessage(msg);
     runGpt(msg);
@@ -131,7 +131,7 @@ public class ChatController {
    * @throws IOException if there is an I/O error
    */
   @FXML
-  private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
+  private void onExit(ActionEvent event) throws ApiProxyException, IOException {
     App.setRoot("room");
   }
 }

@@ -17,15 +17,13 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
  */
 public class RoomController {
 
-  @FXML private Rectangle rectCashier;
-  @FXML private Rectangle rectPerson1;
-  @FXML private Rectangle rectPerson2;
-  @FXML private Rectangle rectPerson3;
+  @FXML private Rectangle rectOfficer;
+  @FXML private Rectangle rectSuspect1;
+  @FXML private Rectangle rectSuspect2;
+  @FXML private Rectangle rectSuspect3;
   @FXML private Rectangle rectWaitress;
-  @FXML private Label lblProfession;
   @FXML private Button btnGuess;
 
-  private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
 
   /**
@@ -34,13 +32,6 @@ public class RoomController {
    */
   @FXML
   public void initialize() {
-    if (isFirstTimeInit) {
-      TextToSpeech.speak(
-          "Chat with the three customers, and guess who is the "
-              + context.getProfessionToGuess());
-      isFirstTimeInit = false;
-    }
-    lblProfession.setText(context.getProfessionToGuess());
   }
 
   /**

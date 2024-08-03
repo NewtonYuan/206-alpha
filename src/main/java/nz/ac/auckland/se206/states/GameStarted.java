@@ -35,14 +35,11 @@ public class GameStarted implements GameState {
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
     // Transition to chat view or provide an introduction based on the clicked rectangle
     switch (rectangleId) {
-      case "rectCashier":
-        TextToSpeech.speak("Welcome to my cafe!");
-        return;
-      case "rectWaitress":
-        TextToSpeech.speak("Hi, let me know when you are ready to order!");
+      case "rectOfficer":
+        TextToSpeech.speak("This is you, collect clues to find the thief");
         return;
     }
-    App.openChat(event, context.getProfession(rectangleId));
+    App.openChat(event, context.getSuspectResult(rectangleId));
   }
 
   /**
@@ -53,7 +50,7 @@ public class GameStarted implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
-    TextToSpeech.speak("Make a guess, click on the " + context.getProfessionToGuess());
+    TextToSpeech.speak("Make a guess, click on the correct suspect");
     context.setState(context.getGuessingState());
   }
 }

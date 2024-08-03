@@ -2,6 +2,8 @@ package nz.ac.auckland.se206;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -22,8 +24,7 @@ import org.yaml.snakeyaml.Yaml;
 public class GameStateContext {
 
   private final String rectIdToGuess;
-  private final String professionToGuess;
-  private final Map<String, String> rectanglesToProfession;
+  private final Map<String, String> rectanglesToSuspect;
   private final GameStarted gameStartedState;
   private final Guessing guessingState;
   private final GameOver gameOverState;
@@ -36,38 +37,24 @@ public class GameStateContext {
     gameOverState = new GameOver(this);
 
     gameState = gameStartedState; // Initial state
-    Map<String, Object> obj = null;
-    Yaml yaml = new Yaml();
-    try (InputStream inputStream =
-        GameStateContext.class.getClassLoader().getResourceAsStream("data/professions.yaml")) {
-      if (inputStream == null) {
-        throw new IllegalStateException("File not found!");
+
+    String[] suspectResultArray = {"thief", "innocent", "innocent"};
+    List<String> suspectResultList = Arrays.asList(suspectResultArray);
+    Collections.shuffle(suspectResultList);
+    suspectResultList.toArray(suspectResultArray);
+    rectanglesToSuspect = new HashMap<>();
+    rectanglesToSuspect.put("rectSuspect1", suspectResultArray[0]);
+    rectanglesToSuspect.put("rectSuspect2", suspectResultArray[1]);
+    rectanglesToSuspect.put("rectSuspect3", suspectResultArray[2]);
+
+    int trueIndex = -1;
+    for (int i = 0; i < suspectResultArray.length; i++) {
+      if (suspectResultArray[i] == "thief") {
+        trueIndex = i;
+        break;
       }
-      obj = yaml.load(inputStream);
-    } catch (IOException e) {
-      e.printStackTrace();
     }
-
-    @SuppressWarnings("unchecked")
-    List<String> professions = (List<String>) obj.get("professions");
-
-    Random random = new Random();
-    Set<String> randomProfessions = new HashSet<>();
-    while (randomProfessions.size() < 3) {
-      String profession = professions.get(random.nextInt(professions.size()));
-      randomProfessions.add(profession);
-    }
-
-    String[] randomProfessionsArray = randomProfessions.toArray(new String[3]);
-    rectanglesToProfession = new HashMap<>();
-    rectanglesToProfession.put("rectPerson1", randomProfessionsArray[0]);
-    rectanglesToProfession.put("rectPerson2", randomProfessionsArray[1]);
-    rectanglesToProfession.put("rectPerson3", randomProfessionsArray[2]);
-
-    int randomNumber = random.nextInt(3);
-    rectIdToGuess =
-        randomNumber == 0 ? "rectPerson1" : ((randomNumber == 1) ? "rectPerson2" : "rectPerson3");
-    professionToGuess = rectanglesToProfession.get(rectIdToGuess);
+    rectIdToGuess = trueIndex == 0 ? "rectSuspect1" : trueIndex == 1 ? "rectSuspect2" : "rectSuspect3";  
   }
 
   /**
@@ -107,15 +94,6 @@ public class GameStateContext {
   }
 
   /**
-   * Gets the profession to be guessed.
-   *
-   * @return the profession to guess
-   */
-  public String getProfessionToGuess() {
-    return professionToGuess;
-  }
-
-  /**
    * Gets the ID of the rectangle to be guessed.
    *
    * @return the rectangle ID to guess
@@ -130,8 +108,8 @@ public class GameStateContext {
    * @param rectangleId the rectangle ID
    * @return the profession associated with the rectangle ID
    */
-  public String getProfession(String rectangleId) {
-    return rectanglesToProfession.get(rectangleId);
+  public String getSuspectResult(String rectangleId) {
+    return rectanglesToSuspect.get(rectangleId);
   }
 
   /**

@@ -32,11 +32,11 @@ public class GameOver implements GameState {
    */
   @Override
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
-    if (rectangleId.equals("rectCashier") || rectangleId.equals("rectWaitress")) {
+    if (rectangleId.equals("rectOfficer")) {
       return;
     }
-    String clickedProfession = context.getProfession(rectangleId);
-    TextToSpeech.speak("Game Over, you have already guessed! This is the " + clickedProfession);
+    String suspectResult = context.getSuspectResult(rectangleId);
+    TextToSpeech.speak("Game Over, you have already guessed! This is" + suspectResult == "innocent" ? " not" : "" + " the thief");
   }
 
   /**

@@ -17,6 +17,7 @@ import nz.ac.auckland.se206.controllers.ChatController;
 public class App extends Application {
 
   private static Scene scene;
+  private boolean chatModeOn;
 
   /**
    * The main method that launches the JavaFX application.
