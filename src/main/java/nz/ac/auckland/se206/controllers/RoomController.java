@@ -97,9 +97,13 @@ public class RoomController {
    */
   @FXML
   private void handleGuessClick(ActionEvent event) throws IOException {
-    titleLabel.setText("Click on any of the three suspects to make a guess!");
-    chatContainer.setVisible(false);
-    context.handleGuessClick();
+    if(context.getCluesFound() >= 3) {
+      titleLabel.setText("Click on any of the three suspects to make a guess!");
+      chatContainer.setVisible(false);
+      context.handleGuessClick();
+    } else {
+      titleLabel.setText("You need to find more clues! You have found " + context.getCluesFound() + "/3 clues!");
+    }
   }
 
   private String getSystemPrompt() {

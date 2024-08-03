@@ -29,10 +29,12 @@ public class GameStateContext {
   private final GameStarted gameStartedState;
   private final Guessing guessingState;
   private final GameOver gameOverState;
+  private Integer cluesFound;
   private GameState gameState;
 
   /** Constructs a new GameStateContext and initializes the game states and professions. */
   public GameStateContext(RoomController roomController) {
+    cluesFound = 0;
     gameStartedState = new GameStarted(this, roomController);
     guessingState = new Guessing(this);
     gameOverState = new GameOver(this);
@@ -131,5 +133,13 @@ public class GameStateContext {
    */
   public void handleGuessClick() throws IOException {
     gameState.handleGuessClick();
+  }
+
+  public void updateCluesFound(Integer clues) {
+    cluesFound += clues;
+  }
+
+  public Integer getCluesFound() {
+    return cluesFound;
   }
 }

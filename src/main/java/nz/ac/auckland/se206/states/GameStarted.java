@@ -48,11 +48,17 @@ public class GameStarted implements GameState {
         roomController.setTitleLabelText("Clue found: The thief seems to have used a car as transport.");
         return;
       case "rectClueMoney":
-        roomController.setChatTitleText("Clue found: The thief seems to have tried to steal money.");
+        roomController.setTitleLabelText("Clue found: The thief seems to have tried to steal money.");
         return;
       case "rectClueGate":
-        roomController.setChatTitleText("Clue found: The thief seems to have tried to open this gate.");
+        roomController.setTitleLabelText("Clue found: The thief seems to have tried to open this gate.");
         return;
+      case "rectSuspect1":
+        roomController.setChatTitleText("Suspect ONE");
+      case "rectSuspect2":
+        roomController.setChatTitleText("Suspect TWO");
+      case "rectSuspect3":
+        roomController.setChatTitleText("Suspect THREE");
     }
     roomController.setChatContainerVisible(true);
   }
