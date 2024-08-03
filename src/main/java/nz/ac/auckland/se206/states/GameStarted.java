@@ -39,7 +39,7 @@ public class GameStarted implements GameState {
         TextToSpeech.speak("This is you, collect clues to find the thief");
         return;
     }
-    App.openChat(event, context.getSuspectResult(rectangleId));
+    //App.openChat(event, context.getSuspectResult(rectangleId));
   }
 
   /**
