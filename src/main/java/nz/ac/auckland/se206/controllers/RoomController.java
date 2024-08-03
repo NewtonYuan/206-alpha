@@ -40,7 +40,8 @@ public class RoomController {
   @FXML private TextArea textArea;
   @FXML private TextField inputField;
   @FXML private Button sendButton;
-  @FXML private Pane chatPane;
+  @FXML private Pane chatContainer;
+  @FXML private Label titleLabel;
 
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
@@ -95,6 +96,8 @@ public class RoomController {
    */
   @FXML
   private void handleGuessClick(ActionEvent event) throws IOException {
+    titleLabel.setText("Click on any of the three suspects to make a guess!");
+    chatContainer.setVisible(false);
     context.handleGuessClick();
   }
 
@@ -184,6 +187,10 @@ public class RoomController {
    */
   @FXML
   private void onExit(ActionEvent event) throws ApiProxyException, IOException {
-    chatPane.setVisible(false);
+    chatContainer.setVisible(false);
+  }
+
+  public Pane getChatContainer() {
+    return chatContainer;
   }
 }

@@ -1,10 +1,14 @@
 package nz.ac.auckland.se206.states;
 
 import java.io.IOException;
+
+import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.controllers.RoomController;
 
 /**
  * The GameStarted state of the game. Handles the initial interactions when the game starts,
@@ -13,6 +17,7 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
 public class GameStarted implements GameState {
 
   private final GameStateContext context;
+  @FXML private Pane chatContainer;
 
   /**
    * Constructs a new GameStarted state with the given game state context.
@@ -39,7 +44,7 @@ public class GameStarted implements GameState {
         TextToSpeech.speak("This is you, collect clues to find the thief");
         return;
     }
-    //App.openChat(event, context.getSuspectResult(rectangleId));
+    //chatContainer.setVisible(true);
   }
 
   /**
