@@ -24,7 +24,7 @@ public class GameStarted implements GameState {
    *
    * @param context the context of the game state
    */
-  public GameStarted(GameStateContext context, RoomController roomController  ) {
+  public GameStarted(GameStateContext context, RoomController roomController) {
     this.context = context;
     this.roomController = roomController;
   }
@@ -46,12 +46,15 @@ public class GameStarted implements GameState {
         return;
       case "rectClueCar":
         roomController.setTitleLabelText("Clue found: The thief seems to have used a car as transport.");
+        context.updateCluesFound(1);
         return;
       case "rectClueMoney":
         roomController.setTitleLabelText("Clue found: The thief seems to have tried to steal money.");
+        context.updateCluesFound(1);
         return;
       case "rectClueGate":
         roomController.setTitleLabelText("Clue found: The thief seems to have tried to open this gate.");
+        context.updateCluesFound(1);
         return;
       case "rectSuspect1":
         roomController.setChatTitleText("Suspect ONE");

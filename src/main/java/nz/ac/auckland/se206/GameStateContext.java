@@ -36,8 +36,8 @@ public class GameStateContext {
   public GameStateContext(RoomController roomController) {
     cluesFound = 0;
     gameStartedState = new GameStarted(this, roomController);
-    guessingState = new Guessing(this);
-    gameOverState = new GameOver(this);
+    guessingState = new Guessing(this, roomController);
+    gameOverState = new GameOver(this, roomController);
 
     gameState = gameStartedState; // Initial state
 

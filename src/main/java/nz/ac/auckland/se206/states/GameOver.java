@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.states;
 import java.io.IOException;
 import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.GameStateContext;
+import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /**
@@ -12,14 +13,16 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
 public class GameOver implements GameState {
 
   private final GameStateContext context;
+  private final RoomController roomController;
 
   /**
    * Constructs a new GameOver state with the given game state context.
    *
    * @param context the context of the game state
    */
-  public GameOver(GameStateContext context) {
+  public GameOver(GameStateContext context, RoomController roomController) {
     this.context = context;
+    this.roomController = roomController;
   }
 
   /**
@@ -32,11 +35,19 @@ public class GameOver implements GameState {
    */
   @Override
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
-    if (rectangleId.equals("rectOfficer")) {
-      return;
+    switch (rectangleId) {
+      case "rectOfficer":
+        return;
+      case "rectClueCar":
+        return;
+      case "rectClueMoney":
+        return;
+      case "rectClueGate":
+        return;
     }
     String suspectResult = context.getSuspectResult(rectangleId);
-    TextToSpeech.speak("Game Over, you have already guessed! This is" + suspectResult == "innocent" ? " not" : "" + " the thief");
+    roomController.setTitleLabelText("Game Over, you have already guessed! This is" + (suspectResult == "innocent" ? " not" : "") + " the thief");
+    TextToSpeech.speak("Game Over, you have already guessed! This is" + (suspectResult == "innocent" ? " not" : "") + " the thief");
   }
 
   /**
