@@ -108,7 +108,7 @@ public class RoomController {
 
   private String getSystemPrompt() {
     Map<String, String> map = new HashMap<>();
-    map.put("suspectResult", suspectResult);
+    map.put("suspectResult", suspectResult == "innocent" ? "not" : "");
     return PromptEngineering.getPrompt("chat.txt", map);
   }
 
