@@ -45,7 +45,7 @@ public class RoomController {
   @FXML private Label chatTitle;
 
   private ChatCompletionRequest chatCompletionRequest;
-  private String profession;
+  private String suspectResult;
 
   private GameStateContext context = new GameStateContext(this);
 
@@ -108,7 +108,7 @@ public class RoomController {
 
   private String getSystemPrompt() {
     Map<String, String> map = new HashMap<>();
-    map.put("profession", profession);
+    map.put("suspectResult", suspectResult);
     return PromptEngineering.getPrompt("chat.txt", map);
   }
 
@@ -117,8 +117,8 @@ public class RoomController {
    *
    * @param profession the profession to set
    */
-  public void setProfession(String profession) {
-    this.profession = profession;
+  public void setSuspectResult(String suspectResult) {
+    this.suspectResult = suspectResult;
     try {
       ApiProxyConfig config = ApiProxyConfig.readConfig();
       chatCompletionRequest =

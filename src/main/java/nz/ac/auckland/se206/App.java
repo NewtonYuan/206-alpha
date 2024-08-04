@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import nz.ac.auckland.se206.controllers.RoomController;
 
 /**
  * This is the entry point of the JavaFX application. This class initializes and runs the JavaFX
@@ -46,6 +47,20 @@ public class App extends Application {
    */
   private static Parent loadFxml(final String fxml) throws IOException {
     return new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml")).load();
+  }
+
+  /**
+   * Opens the chat view and sets the profession in the chat controller.
+   *
+   * @param event the mouse event that triggered the method
+   * @param profession the profession to set in the chat controller
+   * @throws IOException if the FXML file is not found
+   */
+  public static void openChat(MouseEvent event, String suspectResult) throws IOException {
+    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/room.fxml"));
+
+    RoomController roomController = loader.getController();
+    roomController.setSuspectResult(suspectResult);
   }
 
   /**
