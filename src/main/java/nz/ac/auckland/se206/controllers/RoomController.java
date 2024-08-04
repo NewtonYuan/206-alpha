@@ -3,7 +3,10 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
 import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
@@ -44,6 +48,10 @@ public class RoomController {
   @FXML private Label titleLabel;
   @FXML private Label chatTitle;
 
+  @FXML private Label minutesLabel;
+  @FXML private Label secondsLabel;
+  private int remainingTime = 120;
+
   private ChatCompletionRequest chatCompletionRequest;
   private String suspectResult;
 
@@ -55,6 +63,7 @@ public class RoomController {
    */
   @FXML
   public void initialize() {
+    startCountdownTimer();
   }
 
   /**
@@ -205,5 +214,23 @@ public class RoomController {
 
   public void setChatTitleText(String text) {
     chatTitle.setText(text);
+  }
+
+  private void startCountdownTimer() {
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+      remainingTime--;
+      int minutes = (int) TimeUnit.SECONDS.toMinutes(remainingTime);
+      int seconds = remainingTime - (minutes * 60);
+
+      minutesLabel.setText(minutes + " minute" + (minutes == 1 ? "" : "s"));
+      secondsLabel.setText(seconds + " second" + (seconds == 1 ? "" : "s"));
+
+      if (remainingTime <= 0) {
+        // Stop the timer when it reaches 0
+        ((Timeline) event.getSource()).stop();
+      }
+    }));
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
   }
 }

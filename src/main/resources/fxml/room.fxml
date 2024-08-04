@@ -72,8 +72,8 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="4.0" layoutY="28.0" text="1 minute" textFill="WHITE" />
-            <Label layoutX="4.0" layoutY="43.0" text="59 seconds" textFill="WHITE" />
+            <Label fx:id="minutesLabel" layoutX="4.0" layoutY="28.0" text="1 minute" textFill="WHITE" />
+            <Label fx:id="secondsLabel" layoutX="4.0" layoutY="43.0" text="59 seconds" textFill="WHITE" />
          </children>
       </Pane>
    </children>
