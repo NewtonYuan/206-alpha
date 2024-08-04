@@ -51,6 +51,7 @@ public class RoomController {
   @FXML private Label minutesLabel;
   @FXML private Label secondsLabel;
   private int remainingTime = 120;
+  private Timeline timeline;
 
   private ChatCompletionRequest chatCompletionRequest;
   private String suspectResult;
@@ -202,6 +203,7 @@ public class RoomController {
   @FXML
   private void onExit(ActionEvent event) throws ApiProxyException, IOException {
     chatContainer.setVisible(false);
+    textArea.clear();
   }
 
   public void setChatContainerVisible(boolean visible) {
@@ -217,7 +219,7 @@ public class RoomController {
   }
 
   private void startCountdownTimer() {
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+   timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
       remainingTime--;
       int minutes = (int) TimeUnit.SECONDS.toMinutes(remainingTime);
       int seconds = remainingTime - (minutes * 60);
@@ -227,7 +229,7 @@ public class RoomController {
 
       if (remainingTime <= 0) {
         // Stop the timer when it reaches 0
-        ((Timeline) event.getSource()).stop();
+        timeline.stop();
       }
     }));
     timeline.setCycleCount(Timeline.INDEFINITE);
