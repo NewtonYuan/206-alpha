@@ -48,6 +48,7 @@ public class Guessing implements GameState {
       TextToSpeech.speak("You lost! This is not the thief!");
     }
     context.setState(context.getGameOverState());
+    roomController.stopTimeline();
   }
 
   /**

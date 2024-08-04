@@ -28,6 +28,7 @@ import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
 import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.states.GameOver;
 
 /**
  * Controller class for the room view. Handles user interactions within the room where the user can
@@ -248,6 +249,10 @@ public class RoomController {
       if (remainingTime <= 0) {
         // Stop the timer when it reaches 0
         timeline.stop();
+        context.setState(context.getGameOverState());
+        minutesLabel.setText("Game Over,");
+        secondsLabel.setText("Time's Up.");
+        TextToSpeech.speak("Game Over, Time's Up, You lost.");
       }
     }));
     timeline.setCycleCount(Timeline.INDEFINITE);
@@ -256,5 +261,9 @@ public class RoomController {
   
   public void setRemainingTime(Integer remInteger) {
     remainingTime = remInteger;
+  }
+
+  public void stopTimeline() {
+    timeline.stop();
   }
 }
