@@ -64,7 +64,7 @@ public class GameStarted implements GameState {
         roomController.setChatTitleText("Suspect THREE");
     }
     roomController.setChatContainerVisible(true);
-    App.openChat(event, context.getSuspectResult(rectangleId));
+    roomController.setSuspectResult(context.getSuspectResult(rectangleId));
   }
 
   /**
