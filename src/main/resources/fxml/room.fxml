@@ -76,5 +76,15 @@
             <Label fx:id="secondsLabel" layoutX="4.0" layoutY="43.0" text="0 seconds" textFill="WHITE" />
          </children>
       </Pane>
+      <Pane fx:id="gameOverPane" layoutX="178.0" layoutY="146.0" opacity="0.8" prefHeight="200.0" prefWidth="436.0" style="-fx-background-color: black;" visible="false">
+         <children>
+            <Label layoutX="51.0" layoutY="34.0" text="Game Over" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="64.0" />
+               </font>
+            </Label>
+            <Label fx:id="gameOverText" layoutX="174.0" layoutY="115.0" prefHeight="67.0" prefWidth="89.0" text="Timer Expired" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+         </children>
+      </Pane>
    </children>
 </Pane>

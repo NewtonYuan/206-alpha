@@ -43,12 +43,15 @@ public class Guessing implements GameState {
     if (rectangleId.equals(context.getRectIdToGuess())) {
       roomController.setTitleLabelText("Correct! You won! This is the thief!");
       TextToSpeech.speak("Correct! You won! This is the thief!");
+      roomController.setGameOverText("You guessed the right person.");
     } else {
       roomController.setTitleLabelText("You lost! This is not the thief!");
       TextToSpeech.speak("You lost! This is not the thief!");
+      roomController.setGameOverText("You guessed the wrong person.");
     }
     context.setState(context.getGameOverState());
     roomController.stopTimeline();
+    roomController.setGameOverVisible(true);
   }
 
   /**

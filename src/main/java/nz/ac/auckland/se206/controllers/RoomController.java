@@ -55,6 +55,9 @@ public class RoomController {
   private int remainingTime = 120;
   private Timeline timeline;
 
+  @FXML private Pane gameOverPane;
+  @FXML private Label gameOverText;
+
   private ChatCompletionRequest chatCompletionRequest;
   private String suspectResult;
 
@@ -237,6 +240,14 @@ public class RoomController {
     chatTitle.setText(text);
   }
 
+  public void setGameOverVisible(boolean visible) {
+    gameOverPane.setVisible(visible);
+  }
+
+  public void setGameOverText(String text) {
+    gameOverText.setText(text);
+  }
+
   private void startCountdownTimer() {
    timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
       remainingTime--;
@@ -253,6 +264,8 @@ public class RoomController {
         minutesLabel.setText("Game Over,");
         secondsLabel.setText("Time's Up.");
         TextToSpeech.speak("Game Over, Time's Up, You lost.");
+        gameOverPane.setVisible(true);
+        gameOverText.setText("Timer expired.");
       }
     }));
     timeline.setCycleCount(Timeline.INDEFINITE);
