@@ -77,5 +77,6 @@ public class GameStarted implements GameState {
   public void handleGuessClick() throws IOException {
     TextToSpeech.speak("Make a guess, click on the correct suspect");
     context.setState(context.getGuessingState());
+    roomController.setRemainingTime(10);
   }
 }

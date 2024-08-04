@@ -235,4 +235,8 @@ public class RoomController {
     timeline.setCycleCount(Timeline.INDEFINITE);
     timeline.play();
   }
+  
+  public void setRemainingTime(Integer remInteger) {
+    remainingTime = remInteger;
+  }
 }
