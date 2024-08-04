@@ -56,7 +56,7 @@
             <TextField fx:id="inputField" layoutX="11.0" layoutY="194.0" prefHeight="25.0" prefWidth="378.0" />
             <Button fx:id="sendButton" layoutX="329.0" layoutY="225.0" mnemonicParsing="false" onAction="#onSendMessage" prefHeight="25.0" prefWidth="60.0" text="Send" />
             <Button fx:id="exitButton" layoutX="334.0" layoutY="6.0" mnemonicParsing="false" onAction="#onExit" prefHeight="25.0" prefWidth="60.0" text="Exit" />
-            <TextArea fx:id="textArea" layoutX="11.0" layoutY="44.0" prefHeight="141.0" prefWidth="378.0" />
+            <TextArea fx:id="textArea" layoutX="11.0" layoutY="44.0" prefHeight="141.0" prefWidth="378.0" wrapText="true" />
          </children>
       </Pane>
       <Pane layoutX="189.0" layoutY="14.0" opacity="0.8" prefHeight="67.0" prefWidth="413.0" style="-fx-background-color: black;">
