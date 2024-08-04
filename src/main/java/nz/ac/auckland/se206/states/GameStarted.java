@@ -61,10 +61,13 @@ public class GameStarted implements GameState {
         return;
       case "rectSuspect1":
         roomController.setChatTitleText("Suspect ONE");
+        context.updateSuspectsConversed(1);
       case "rectSuspect2":
         roomController.setChatTitleText("Suspect TWO");
+        context.updateSuspectsConversed(1);
       case "rectSuspect3":
         roomController.setChatTitleText("Suspect THREE");
+        context.updateSuspectsConversed(1);
     }
     roomController.setChatContainerVisible(true);
     roomController.setSuspectResult(context.getSuspectResult(rectangleId));
