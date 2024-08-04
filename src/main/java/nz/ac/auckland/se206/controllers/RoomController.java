@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -159,20 +160,37 @@ public class RoomController {
    * @return the response chat message
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
-  private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
+  private void runGpt(ChatMessage msg) throws ApiProxyException {
     chatCompletionRequest.addMessage(msg);
-    try {
-      ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
-      Choice result = chatCompletionResult.getChoices().iterator().next();
-      chatCompletionRequest.addMessage(result.getChatMessage());
-      appendChatMessage(result.getChatMessage());
-      TextToSpeech.speak(result.getChatMessage().getContent());
-      return result.getChatMessage();
-    } catch (ApiProxyException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
+
+    Task<ChatMessage> task = new Task<ChatMessage>() {
+        @Override
+        protected ChatMessage call() throws Exception {
+            try {
+                ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
+                Choice result = chatCompletionResult.getChoices().iterator().next();
+                chatCompletionRequest.addMessage(result.getChatMessage());
+                return result.getChatMessage();
+            } catch (ApiProxyException e) {
+                e.printStackTrace();
+                throw e;
+            }
+        }
+    };
+
+    task.setOnSucceeded(event -> {
+        ChatMessage result = task.getValue();
+        appendChatMessage(result);
+        TextToSpeech.speak(result.getContent());
+    });
+
+    task.setOnFailed(event -> {
+        Throwable exception = task.getException();
+        exception.printStackTrace();
+    });
+
+    new Thread(task).start();
+}
 
   /**
    * Sends a message to the GPT model.
