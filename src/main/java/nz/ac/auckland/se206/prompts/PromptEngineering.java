@@ -28,8 +28,6 @@ public class PromptEngineering {
       URL resourceUrl = PromptEngineering.class.getClassLoader().getResource("prompts/chat.txt");
       String template = loadTemplate(resourceUrl.toURI());
       // Fill the template with the provided data
-      System.out.println(data);
-      System.out.println(fillTemplate(template, data));
       return fillTemplate(template, data);
     } catch (IOException | URISyntaxException e) {
       e.printStackTrace();

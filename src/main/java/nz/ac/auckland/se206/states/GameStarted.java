@@ -45,14 +45,17 @@ public class GameStarted implements GameState {
         TextToSpeech.speak("This is you, collect clues to find the thief");
         return;
       case "rectClueCar":
+        TextToSpeech.speak("The thief seems to have used a car as transport.");
         roomController.setTitleLabelText("Clue found: The thief seems to have used a car as transport.");
         context.updateCluesFound(1);
         return;
       case "rectClueMoney":
+        TextToSpeech.speak("The thief seems to have tried to steal money.");
         roomController.setTitleLabelText("Clue found: The thief seems to have tried to steal money.");
         context.updateCluesFound(1);
         return;
       case "rectClueGate":
+        TextToSpeech.speak("The thief seems to have tried to open this gate.");
         roomController.setTitleLabelText("Clue found: The thief seems to have tried to open this gate.");
         context.updateCluesFound(1);
         return;
