@@ -61,7 +61,7 @@
       </Pane>
       <Pane layoutX="189.0" layoutY="14.0" opacity="0.8" prefHeight="67.0" prefWidth="413.0" style="-fx-background-color: black;">
          <children>
-            <Label fx:id="titleLabel" layoutX="28.0" layoutY="5.0" prefHeight="55.0" prefWidth="357.0" text="You are a detective from PI MASTERS, find clues scattered around the scene, or click on the three suspects surrounding you and interrogate them, when you're ready make a guess!" textFill="WHITE" wrapText="true" />
+            <Label fx:id="titleLabel" layoutX="28.0" layoutY="4.0" prefHeight="55.0" prefWidth="357.0" text="An expensive watch has been stolen, find clues scattered around the scene, or click on the three suspects surrounding you and interrogate them, when you're ready make a guess!" textFill="WHITE" wrapText="true" />
          </children>
       </Pane>
       <Button fx:id="guessButton" layoutX="667.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleGuessClick" prefHeight="34.0" prefWidth="108.0" text="Make a guess!" />
