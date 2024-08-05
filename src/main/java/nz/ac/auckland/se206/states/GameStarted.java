@@ -79,6 +79,7 @@ public class GameStarted implements GameState {
         context.updateSuspectsConversed(1);
     }
     roomController.setChatContainerVisible(true);
+    roomController.setTitleLabelText("You are talking with a suspect...");
     roomController.setSuspectResult(context.getSuspectResult(rectangleId));
   }
 
