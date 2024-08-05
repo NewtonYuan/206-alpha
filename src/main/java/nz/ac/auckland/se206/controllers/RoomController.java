@@ -52,6 +52,7 @@ public class RoomController {
   @FXML private Label secondsLabel;
   private int remainingTime = 120;
   private Timeline timeline;
+  private boolean timerRanOut;
 
   @FXML private Pane gameOverPane;
   @FXML private Label gameOverText;
@@ -68,6 +69,7 @@ public class RoomController {
   @FXML
   public void initialize() {
     startCountdownTimer();
+    this.timerRanOut = false;
   }
 
   /**
@@ -270,14 +272,30 @@ public class RoomController {
                   secondsLabel.setText(seconds + " second" + (seconds == 1 ? "" : "s"));
 
                   if (remainingTime <= 0) {
-                    // Stop the timer when it reaches 0
-                    timeline.stop();
-                    context.setState(context.getGameOverState());
-                    minutesLabel.setText("Game Over,");
-                    secondsLabel.setText("Time's Up.");
-                    TextToSpeech.speak("Game Over, Time's Up, You lost.");
-                    gameOverPane.setVisible(true);
-                    gameOverText.setText("Timer expired.");
+                    timerRanOut = true;
+                    if (timerRanOut) {
+                      timeline.stop();
+                      context.setState(context.getGameOverState());
+                      minutesLabel.setText("Game Over,");
+                      secondsLabel.setText("Time's Up.");
+                      TextToSpeech.speak("Game Over, Time's Up, You lost.");
+                      gameOverPane.setVisible(true);
+                      gameOverText.setText("Timer expired.");
+                    } else {
+                      TextToSpeech.speak("Make a guess, click on the correct suspect");
+                      if (context.getSuspectConversed() < 1 && context.getCluesFound() < 3) {
+                        context.setState(context.getGameOverState());
+                        stopTimeline();
+                        setGameOverVisible(true);
+                        setTitleLabelText(
+                            "You lost, you did not talk to at least 1 suspect or find 3 clues.");
+                      } else {
+                        titleLabel.setText("Click on any of the three suspects to make a guess!");
+                        TextToSpeech.speak("Make a guess, click on the correct suspect");
+                        context.setState(context.getGuessingState());
+                        setRemainingTime(10);
+                      }
+                    }
                   }
                 }));
     timeline.setCycleCount(Timeline.INDEFINITE);
