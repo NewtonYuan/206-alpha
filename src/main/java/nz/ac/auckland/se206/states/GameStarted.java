@@ -37,26 +37,35 @@ public class GameStarted implements GameState {
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
     // Transition to chat view or provide an introduction based on the clicked
     // rectangle
+    roomController.setTitleLabelText("The investigator is thinking...");
     switch (rectangleId) {
       case "rectOfficer":
-        TextToSpeech.speak("This is you, collect clues to find the thief");
+        TextToSpeech.speak(
+            "This is you, collect clues to find the thief",
+            () -> roomController.setTitleLabelText("This is you."));
         return;
       case "rectClueCar":
-        TextToSpeech.speak("The thief seems to have used a car as transport.");
-        roomController.setTitleLabelText(
-            "Clue found: The thief seems to have used a car as transport.");
+        TextToSpeech.speak(
+            "The thief seems to have used a car as transport.",
+            () ->
+                roomController.setTitleLabelText(
+                    "Clue found: The thief seems to have used a car as transport."));
         context.updateCluesFound(1);
         return;
       case "rectClueMoney":
-        TextToSpeech.speak("The thief seems to have tried to steal money.");
-        roomController.setTitleLabelText(
-            "Clue found: The thief seems to have tried to steal money.");
+        TextToSpeech.speak(
+            "The thief seems to have tried to steal money.",
+            () ->
+                roomController.setTitleLabelText(
+                    "Clue found: The thief seems to have tried to steal money."));
         context.updateCluesFound(1);
         return;
       case "rectClueGate":
-        TextToSpeech.speak("The thief seems to have tried to open this gate.");
-        roomController.setTitleLabelText(
-            "Clue found: The thief seems to have tried to open this gate.");
+        TextToSpeech.speak(
+            "The thief seems to have tried to open this gate.",
+            () ->
+                roomController.setTitleLabelText(
+                    "Clue found: The thief seems to have tried to open this gate."));
         context.updateCluesFound(1);
         return;
       case "rectSuspect1":
@@ -81,8 +90,12 @@ public class GameStarted implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
-    TextToSpeech.speak("Make a guess, click on the correct suspect");
-    context.setState(context.getGuessingState());
-    roomController.setRemainingTime(10);
+    roomController.setTitleLabelText("The investigator is thinking...");
+    TextToSpeech.speak(
+        "Make a guess, click on the correct suspect",
+        () -> {
+          context.setState(context.getGuessingState());
+          roomController.setRemainingTime(10);
+        });
   }
 }

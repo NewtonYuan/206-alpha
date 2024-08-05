@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
@@ -17,13 +18,17 @@ import nz.ac.auckland.apiproxy.tts.TextToSpeechResult;
 /** A utility class for converting text to speech using the specified API proxy. */
 public class TextToSpeech {
 
+  public interface CompletionCallback {
+    void onComplete();
+  }
+
   /**
    * Converts the given text to speech and plays the audio.
    *
    * @param text the text to be converted to speech
    * @throws IllegalArgumentException if the text is null or empty
    */
-  public static void speak(String text) {
+  public static void speak(String text, CompletionCallback callback) {
     if (text == null || text.isEmpty()) {
       throw new IllegalArgumentException("Text should not be null or empty");
     }
@@ -42,6 +47,9 @@ public class TextToSpeech {
 
               TextToSpeechResult ttsResult = ttsRequest.execute();
               String audioUrl = ttsResult.getAudioUrl();
+              if (callback != null) {
+                Platform.runLater(callback::onComplete);
+              }
 
               try (InputStream inputStream =
                   new BufferedInputStream(new URL(audioUrl).openStream())) {

@@ -35,18 +35,27 @@ public class Guessing implements GameState {
    */
   @Override
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
+    roomController.setTitleLabelText("The investigator is thinking...");
     if (rectangleId.equals("rectOfficer")) {
-      TextToSpeech.speak("You should click on the suspects");
+      TextToSpeech.speak(
+          "You should click on the suspects",
+          () -> {
+            roomController.setTitleLabelText("Click on the suspects instead");
+          });
       return;
     }
 
     if (rectangleId.equals(context.getRectIdToGuess())) {
-      roomController.setTitleLabelText("Correct! You won! This is the thief!");
-      TextToSpeech.speak("Correct! You won! This is the thief!");
+      TextToSpeech.speak(
+          "Correct! You won! This is the thief!",
+          () -> roomController.setTitleLabelText("Correct! You won! This is the thief!"));
       roomController.setGameOverText("You guessed the right person.");
     } else {
-      roomController.setTitleLabelText("You lost! This is not the thief!");
-      TextToSpeech.speak("You lost! This is not the thief!");
+      TextToSpeech.speak(
+          "You lost! This is not the thief!",
+          () -> {
+            roomController.setTitleLabelText("You lost! This is not the thief!");
+          });
       roomController.setGameOverText("You guessed the wrong person.");
     }
     context.setState(context.getGameOverState());
@@ -62,6 +71,6 @@ public class Guessing implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
-    TextToSpeech.speak("You have already guessed!");
+    TextToSpeech.speak("You have already guessed!", () -> {});
   }
 }

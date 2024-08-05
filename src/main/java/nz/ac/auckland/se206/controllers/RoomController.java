@@ -112,15 +112,21 @@ public class RoomController {
    */
   @FXML
   private void handleGuessClick(ActionEvent event) throws IOException {
+    titleLabel.setText("The investigator is thinking...");
     if (context.getCluesFound() < 3) {
-      TextToSpeech.speak("You need to find more clues!");
-      titleLabel.setText(
-          "You need to find more clues! You have found " + context.getCluesFound() + "/3 clues!");
+      TextToSpeech.speak(
+          "You need to find more clues!",
+          () ->
+              titleLabel.setText(
+                  "You need to find more clues! You have found "
+                      + context.getCluesFound()
+                      + "/3 clues!"));
       return;
     }
     if (context.getSuspectConversed() < 1) {
-      TextToSpeech.speak("You need to talk to a suspect!");
-      titleLabel.setText("You need to talk to a suspect first!");
+      TextToSpeech.speak(
+          "You need to talk to a suspect!",
+          () -> titleLabel.setText("You need to talk to a suspect first!"));
       return;
     }
     titleLabel.setText("Click on any of the three suspects to make a guess!");
@@ -193,8 +199,7 @@ public class RoomController {
     task.setOnSucceeded(
         event -> {
           ChatMessage result = task.getValue();
-          appendChatMessage(result);
-          TextToSpeech.speak(result.getContent());
+          TextToSpeech.speak(result.getContent(), () -> appendChatMessage(result));
         });
 
     task.setOnFailed(
@@ -277,11 +282,11 @@ public class RoomController {
                       context.setState(context.getGameOverState());
                       minutesLabel.setText("Game Over,");
                       secondsLabel.setText("Time's Up.");
-                      TextToSpeech.speak("Game Over, Time's Up, You lost.");
+                      TextToSpeech.speak(
+                          "Game Over, Time's Up, You lost.",
+                          () -> gameOverText.setText("Timer expired."));
                       gameOverPane.setVisible(true);
-                      gameOverText.setText("Timer expired.");
                     } else {
-                      TextToSpeech.speak("Make a guess, click on the correct suspect");
                       if (context.getSuspectConversed() < 1 && context.getCluesFound() < 3) {
                         context.setState(context.getGameOverState());
                         stopTimeline();
@@ -289,8 +294,12 @@ public class RoomController {
                         setTitleLabelText(
                             "You lost, you did not talk to at least 1 suspect or find 3 clues.");
                       } else {
-                        titleLabel.setText("Click on any of the three suspects to make a guess!");
-                        TextToSpeech.speak("Make a guess, click on the correct suspect");
+                        titleLabel.setText("The investigator is thinking...");
+                        TextToSpeech.speak(
+                            "Make a guess, click on the correct suspect",
+                            () ->
+                                titleLabel.setText(
+                                    "Click on any of the three suspects to make a guess!"));
                         context.setState(context.getGuessingState());
                         setRemainingTime(10);
                       }

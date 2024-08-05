@@ -46,14 +46,16 @@ public class GameOver implements GameState {
         return;
     }
     String suspectResult = context.getSuspectResult(rectangleId);
-    roomController.setTitleLabelText(
-        "Game Over, you have already guessed! This is"
-            + (suspectResult == "innocent" ? " not" : "")
-            + " the thief");
+    roomController.setTitleLabelText("The investigator is thinking...");
     TextToSpeech.speak(
         "Game Over, you have already guessed! This is"
             + (suspectResult == "innocent" ? " not" : "")
-            + " the thief");
+            + " the thief",
+        () ->
+            roomController.setTitleLabelText(
+                "Game Over, you have already guessed! This is"
+                    + (suspectResult == "innocent" ? " not" : "")
+                    + " the thief"));
   }
 
   /**
@@ -64,6 +66,6 @@ public class GameOver implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
-    TextToSpeech.speak("You have already guessed!");
+    TextToSpeech.speak("You have already guessed!", () -> {});
   }
 }
