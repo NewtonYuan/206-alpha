@@ -167,8 +167,9 @@ public class RoomController {
    * @param msg the chat message to append
    */
   private void appendChatMessage(ChatMessage msg) {
+    System.out.println(msg.getRole());
     textArea.appendText(
-        (msg.getRole() == "assistant" ? "Suspect" : "You") + ": " + msg.getContent() + "\n\n");
+        (msg.getRole().equals("assistant") ? "Suspect" : "You") + ": " + msg.getContent() + "\n\n");
   }
 
   /**
