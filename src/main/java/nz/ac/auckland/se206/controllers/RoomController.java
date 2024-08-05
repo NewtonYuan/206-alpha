@@ -272,7 +272,6 @@ public class RoomController {
                   secondsLabel.setText(seconds + " second" + (seconds == 1 ? "" : "s"));
 
                   if (remainingTime <= 0) {
-                    timerRanOut = true;
                     if (timerRanOut) {
                       timeline.stop();
                       context.setState(context.getGameOverState());
@@ -296,6 +295,7 @@ public class RoomController {
                         setRemainingTime(10);
                       }
                     }
+                    timerRanOut = true;
                   }
                 }));
     timeline.setCycleCount(Timeline.INDEFINITE);
