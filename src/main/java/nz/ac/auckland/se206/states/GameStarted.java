@@ -95,6 +95,7 @@ public class GameStarted implements GameState {
     TextToSpeech.speak(
         "Make a guess, click on the correct suspect",
         () -> {
+          roomController.setTitleLabelText("Click on any of the three suspects to make a guess!");
           context.setState(context.getGuessingState());
           roomController.setRemainingTime(10);
         });

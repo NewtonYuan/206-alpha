@@ -167,7 +167,8 @@ public class RoomController {
    * @param msg the chat message to append
    */
   private void appendChatMessage(ChatMessage msg) {
-    textArea.appendText(msg.getRole() + ": " + msg.getContent() + "\n\n");
+    textArea.appendText(
+        (msg.getRole() == "assistant" ? "Suspect" : "You") + ": " + msg.getContent() + "\n\n");
   }
 
   /**
@@ -239,6 +240,7 @@ public class RoomController {
    */
   @FXML
   private void onExit(ActionEvent event) throws ApiProxyException, IOException {
+    setTitleLabelText("");
     chatContainer.setVisible(false);
     textArea.clear();
   }
