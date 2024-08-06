@@ -86,5 +86,8 @@
             <Label fx:id="gameOverText" layoutX="174.0" layoutY="115.0" prefHeight="67.0" prefWidth="89.0" text="Timer Expired" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
          </children>
       </Pane>
+      <Label layoutX="24.0" layoutY="324.0" text="Clue" textFill="WHITE" />
+      <Label layoutX="510.0" layoutY="324.0" text="Clue" textFill="WHITE" />
+      <Label layoutX="644.0" layoutY="133.0" text="Clue" textFill="WHITE" />
    </children>
 </Pane>
